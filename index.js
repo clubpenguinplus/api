@@ -113,7 +113,9 @@ app.post('/setItemAvaliable', jsonParser, (req, res) => {
 app.post('/userCreated', jsonParser, (req, res) => {
     if (!req.body.apikey === apikey) return res.send('AUTH FAILED');
 
-    fs.mkdirSync(`./users/${req.body.user}`)
+    if (!fs.existsSync(`./users/${req.body.user}`)) {
+        fs.mkdirSync(`./users/${req.body.user}`)
+    }
 
     creationlog = {
         username: req.body.username,
@@ -141,6 +143,10 @@ app.post('/getUserCreationLog', jsonParser, (req, res) => {
 
 app.post('/logChatMsg', jsonParser, (req, res) => {
     if (!req.body.apikey === apikey) return res.send('AUTH FAILED');
+
+    if (!fs.existsSync(`./users/${req.body.user}`)) {
+        fs.mkdirSync(`./users/${req.body.user}`)
+    }
 
     let path = `./users/${req.body.user}/chat.json`;
 
@@ -170,6 +176,10 @@ app.post('/getUserChatLog', jsonParser, (req, res) => {
 app.post('/logKick', jsonParser, (req, res) => {
     if (!req.body.apikey === apikey) return res.send('AUTH FAILED');
 
+    if (!fs.existsSync(`./users/${req.body.user}`)) {
+        fs.mkdirSync(`./users/${req.body.user}`)
+    }
+
     let path = `./users/${req.body.user}/kick.json`;
 
     let json = {
@@ -197,6 +207,10 @@ app.post('/getUserKickLog', jsonParser, (req, res) => {
 
 app.post('/logBan', jsonParser, (req, res) => {
     if (!req.body.apikey === apikey) return res.send('AUTH FAILED');
+
+    if (!fs.existsSync(`./users/${req.body.user}`)) {
+        fs.mkdirSync(`./users/${req.body.user}`)
+    }
 
     let path = `./users/${req.body.user}/ban.json`;
 
@@ -227,6 +241,10 @@ app.post('/getUserBanLog', jsonParser, (req, res) => {
 app.post('/logWarn', jsonParser, (req, res) => {
     if (!req.body.apikey === apikey) return res.send('AUTH FAILED');
 
+    if (!fs.existsSync(`./users/${req.body.user}`)) {
+        fs.mkdirSync(`./users/${req.body.user}`)
+    }
+
     let path = `./users/${req.body.user}/warn.json`;
 
     let json = {
@@ -255,6 +273,10 @@ app.post('/getUserWarnLog', jsonParser, (req, res) => {
 app.post('/logMute', jsonParser, (req, res) => {
     if (!req.body.apikey === apikey) return res.send('AUTH FAILED');
 
+    if (!fs.existsSync(`./users/${req.body.user}`)) {
+        fs.mkdirSync(`./users/${req.body.user}`)
+    }
+
     let path = `./users/${req.body.user}/mute.json`;
 
     let json = {
@@ -270,6 +292,7 @@ app.post('/logMute', jsonParser, (req, res) => {
 
 app.post('/getUserMuteLog', jsonParser, (req, res) => {
     if (!req.body.apikey === apikey) return res.send('AUTH FAILED');
+    
 
     let path = `./users/${req.body.user}/mute.json`;
 
@@ -283,6 +306,10 @@ app.post('/getUserMuteLog', jsonParser, (req, res) => {
 
 app.post('/logLogin', jsonParser, (req, res) => {
     if (!req.body.apikey === apikey) return res.send('AUTH FAILED');
+
+    if (!fs.existsSync(`./users/${req.body.user}`)) {
+        fs.mkdirSync(`./users/${req.body.user}`)
+    }
 
     let path = `./users/${req.body.user}/login.json`;
 
@@ -298,6 +325,10 @@ app.post('/logLogin', jsonParser, (req, res) => {
 
 app.post('/logLogout', jsonParser, (req, res) => {
     if (!req.body.apikey === apikey) return res.send('AUTH FAILED');
+
+    if (!fs.existsSync(`./users/${req.body.user}`)) {
+        fs.mkdirSync(`./users/${req.body.user}`)
+    }
 
     let path = `./users/${req.body.user}/login.json`;
 
@@ -333,6 +364,10 @@ app.post('/getUserLoginLog', jsonParser, (req, res) => {
 app.post('/logTransaction', jsonParser, (req, res) => {
     if (!req.body.apikey === apikey) return res.send('AUTH FAILED');
 
+    if (!fs.existsSync(`./users/${req.body.user}`)) {
+        fs.mkdirSync(`./users/${req.body.user}`)
+    }
+
     let path = `./users/${req.body.user}/coins.json`;
 
     let json = {
@@ -348,6 +383,7 @@ app.post('/logTransaction', jsonParser, (req, res) => {
 
 app.post('/getUserTransactionLog', jsonParser, (req, res) => {
     if (!req.body.apikey === apikey) return res.send('AUTH FAILED');
+    
 
     let path = `./users/${req.body.user}/coins.json`;
 
