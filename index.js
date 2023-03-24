@@ -21,6 +21,20 @@ for (let dir of dirs) {
 // create application/json parser
 var jsonParser = bodyParser.json()
 
+const appPost = app.post.bind(app)
+app.post = (path, ...args) => {
+    const fn = args.pop().bind(this)
+    args.push((req, res) => {
+        try {
+            fn(req, res)
+        } catch (err) {
+            console.error(err.stack)
+            res.send(err.toString())
+        }
+    })
+    appPost(path, ...args)
+ }
+
 // Check API key
 app.post('/', jsonParser, (req, res) => {
     if (!req.body.apikey === apikey) return res.send('AUTH FAILED');
@@ -86,7 +100,7 @@ app.post('/setItemAvaliable', jsonParser, (req, res) => {
     let itemJson = JSON.parse(fs.readFileSync(path).toString());
     itemJson.available = req.body.available;
     if (req.body.available) {
-        if (itemJson.releases.length > 0) {
+        if (itemJson.releases && itemJson.releases.length > 0) {
             if (itemJson.releases[itemJson.releases.length - 1].to === "TBA") {
                 return res.send("OK");
             }
@@ -102,7 +116,7 @@ app.post('/setItemAvaliable', jsonParser, (req, res) => {
             }];
         }
     } else {
-        if (itemJson.releases.length > 0) {
+        if (itemJson.releases && itemJson.releases.length > 0) {
             itemJson.releases[itemJson.releases.length - 1].to = Date.now().toString();
         }
     } 
