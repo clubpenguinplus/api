@@ -7,7 +7,7 @@ const { json } = require('body-parser');
 const app = express();
 const server = http.createServer(app);
 
-const apikey = 'sFDHn5dQUtAXPq7rMi6jg8SJv3u1tN';
+const apikey = 'ENTER API KEY HERE';
 
 // setup folders
 var dirs = ['./items', './users'];
